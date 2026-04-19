@@ -1,0 +1,66 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e3]:
+    - generic [ref=e5]:
+      - heading "React Component Generator" [level=1] [ref=e7]
+      - generic [ref=e9]:
+        - generic [ref=e53]:
+          - generic [ref=e54]:
+            - generic [ref=e57]: Create a contact form component with name, email, and message fields.
+            - img [ref=e60]
+          - generic [ref=e63]:
+            - img [ref=e66]
+            - generic [ref=e71]:
+              - paragraph [ref=e73]: This is a static response. You can place an Anthropic API key in the .env file to use the Anthropic API for component generation. Let me create an App.jsx file to display the component.
+              - status [ref=e74]:
+                - generic [ref=e76]: Created App.jsx
+              - separator [ref=e77]
+              - paragraph [ref=e79]: I'll create a ContactForm component for you.
+              - status [ref=e80]:
+                - generic [ref=e82]: Created ContactForm.jsx
+              - separator [ref=e83]
+              - paragraph [ref=e85]: Now let me enhance the component with better styling.
+              - status [ref=e86]:
+                - generic [ref=e88]: Edited ContactForm.jsx
+              - separator [ref=e89]
+              - generic [ref=e90]:
+                - paragraph [ref=e91]: "Perfect! I've created:"
+                - list [ref=e92]:
+                  - listitem [ref=e93]:
+                    - strong [ref=e94]: ContactForm.jsx
+                    - text: "- A fully-featured form component"
+                  - listitem [ref=e100]:
+                    - strong [ref=e101]: App.jsx
+                    - text: "- The main app file that displays the component"
+                - paragraph [ref=e102]: The component is now ready to use. You can see the preview on the right side of the screen.
+        - generic [ref=e20]:
+          - textbox "Describe the React component you want to create..." [ref=e21]
+          - button [disabled] [ref=e22]:
+            - img [ref=e23]
+    - separator [ref=e26]
+    - generic [ref=e28]:
+      - generic [ref=e29]:
+        - tablist [ref=e31]:
+          - tab "Preview" [selected] [ref=e32]
+          - tab "Code" [ref=e33]
+        - generic [ref=e34]:
+          - button "Sign In" [ref=e35]
+          - button "Sign Up" [ref=e36]
+      - iframe [ref=e99]:
+        - generic [ref=f8e5]:
+          - generic [ref=f8e6]:
+            - img [ref=f8e8]
+            - generic [ref=f8e11]:
+              - heading "Get in touch" [level=2] [ref=f8e12]
+              - paragraph [ref=f8e13]: Fill out the form and we'll get back within one business day.
+          - generic [ref=f8e14]:
+            - generic [ref=f8e15]:
+              - generic [ref=f8e16]: Name
+              - textbox "Name" [ref=f8e17]
+            - generic [ref=f8e18]:
+              - generic [ref=f8e19]: Email
+              - textbox "Email" [ref=f8e20]
+            - generic [ref=f8e21]:
+              - generic [ref=f8e22]: Message
+              - textbox "Message" [ref=f8e23]
+            - button "Send message" [ref=f8e24] [cursor=pointer]
+  - alert [ref=e47]

@@ -197,118 +197,138 @@ The component is now ready to use. You can see the preview on the right side of 
   private getComponentCode(componentType: string): string {
     switch (componentType) {
       case "form":
-        return `import React, { useState } from 'react';
+        return `import { useState } from 'react';
+import { Mail } from 'lucide-react';
 
 const ContactForm = () => {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    message: ''
-  });
+  const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+  const [status, setStatus] = useState('idle');
 
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
-    // Handle form submission here
+    setStatus('sent');
   };
 
   return (
-    <div className="max-w-md mx-auto p-6 bg-white rounded-lg shadow-md">
-      <h2 className="text-2xl font-bold mb-6">Contact Us</h2>
+    <section className="rounded-2xl bg-white p-8 shadow-sm ring-1 ring-slate-200/70 sm:p-10">
+      <header className="mb-8 flex items-center gap-3">
+        <span className="flex h-10 w-10 items-center justify-center rounded-full bg-indigo-50 text-indigo-600">
+          <Mail aria-hidden className="h-5 w-5" />
+        </span>
+        <div>
+          <h2 className="text-xl font-semibold tracking-tight text-slate-900">Get in touch</h2>
+          <p className="text-sm text-slate-500">We usually respond within a day.</p>
+        </div>
+      </header>
+
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
-            Name
-          </label>
+          <label htmlFor="name" className="block text-sm font-medium text-slate-700">Name</label>
           <input
-            type="text"
             id="name"
             name="name"
+            type="text"
             value={formData.name}
             onChange={handleChange}
             required
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="mt-1 block w-full rounded-lg border-0 bg-slate-50 px-3 py-2 text-sm text-slate-900 ring-1 ring-inset ring-slate-200 placeholder:text-slate-400 transition focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
           />
         </div>
-        
+
         <div>
-          <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
-            Email
-          </label>
+          <label htmlFor="email" className="block text-sm font-medium text-slate-700">Email</label>
           <input
-            type="email"
             id="email"
             name="email"
+            type="email"
             value={formData.email}
             onChange={handleChange}
             required
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="mt-1 block w-full rounded-lg border-0 bg-slate-50 px-3 py-2 text-sm text-slate-900 ring-1 ring-inset ring-slate-200 placeholder:text-slate-400 transition focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
           />
         </div>
-        
+
         <div>
-          <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">
-            Message
-          </label>
+          <label htmlFor="message" className="block text-sm font-medium text-slate-700">Message</label>
           <textarea
             id="message"
             name="message"
+            rows={4}
             value={formData.message}
             onChange={handleChange}
             required
-            rows={4}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="mt-1 block w-full rounded-lg border-0 bg-slate-50 px-3 py-2 text-sm text-slate-900 ring-1 ring-inset ring-slate-200 placeholder:text-slate-400 transition focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
           />
         </div>
-        
+
         <button
           type="submit"
-          className="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition-colors"
+          className="w-full rounded-lg bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-indigo-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 active:bg-indigo-700"
         >
-          Send Message
+          Send message
         </button>
+
+        {status === 'sent' && (
+          <p role="status" className="text-sm font-medium text-emerald-600">
+            Thanks — we'll be in touch shortly.
+          </p>
+        )}
       </form>
-    </div>
+    </section>
   );
 };
 
 export default ContactForm;`;
 
       case "card":
-        return `import React from 'react';
+        return `import { Check } from 'lucide-react';
 
-const Card = ({ 
-  title = "Welcome to Our Service", 
-  description = "Discover amazing features and capabilities that will transform your experience.",
-  imageUrl,
-  actions 
+const defaultFeatures = [
+  'Unlimited projects',
+  'Priority email support',
+  'Advanced analytics dashboard',
+  'Custom domain & SSL',
+];
+
+const Card = ({
+  plan = 'Pro',
+  price = 29,
+  period = 'month',
+  description = 'Everything you need to ship production apps with confidence.',
+  features = defaultFeatures,
+  ctaLabel = 'Start free trial',
 }) => {
   return (
-    <div className="bg-white rounded-lg shadow-md overflow-hidden">
-      {imageUrl && (
-        <img 
-          src={imageUrl} 
-          alt={title}
-          className="w-full h-48 object-cover"
-        />
-      )}
-      <div className="p-6">
-        <h3 className="text-xl font-semibold mb-2">{title}</h3>
-        <p className="text-gray-600 mb-4">{description}</p>
-        {actions && (
-          <div className="mt-4">
-            {actions}
-          </div>
-        )}
-      </div>
-    </div>
+    <section className="relative rounded-2xl bg-white p-8 shadow-sm ring-1 ring-slate-200/70 sm:p-10">
+      <header className="mb-6">
+        <p className="text-sm font-medium uppercase tracking-wide text-indigo-600">{plan}</p>
+        <h3 className="mt-2 flex items-baseline gap-1 text-slate-900">
+          <span className="text-4xl font-semibold tracking-tight">\${price}</span>
+          <span className="text-sm font-medium text-slate-500">/{period}</span>
+        </h3>
+        <p className="mt-3 text-sm leading-relaxed text-slate-600">{description}</p>
+      </header>
+
+      <ul className="mb-8 space-y-3">
+        {features.map((feature) => (
+          <li key={feature} className="flex items-start gap-3 text-sm text-slate-700">
+            <Check aria-hidden className="mt-0.5 h-4 w-4 flex-none text-indigo-600" />
+            <span>{feature}</span>
+          </li>
+        ))}
+      </ul>
+
+      <button
+        type="button"
+        className="w-full rounded-lg bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-indigo-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 active:bg-indigo-700"
+      >
+        {ctaLabel}
+      </button>
+    </section>
   );
 };
 
@@ -316,47 +336,47 @@ export default Card;`;
 
       default:
         return `import { useState } from 'react';
+import { Minus, Plus, RotateCcw } from 'lucide-react';
 
 const Counter = () => {
   const [count, setCount] = useState(0);
 
-  const increment = () => {
-    setCount(count + 1);
-  };
-
-  const decrement = () => {
-    setCount(count - 1);
-  };
-
-  const reset = () => {
-    setCount(0);
-  };
-
   return (
-    <div className="flex flex-col items-center p-6 bg-white rounded-lg shadow-md">
-      <h2 className="text-2xl font-bold mb-4">Counter</h2>
-      <div className="text-4xl font-bold mb-6">{count}</div>
-      <div className="flex gap-4">
-        <button 
-          onClick={decrement}
-          className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 transition-colors"
+    <section className="rounded-2xl bg-white p-8 shadow-sm ring-1 ring-slate-200/70 sm:p-10">
+      <header className="mb-8 text-center">
+        <p className="text-sm font-medium uppercase tracking-wide text-indigo-600">Counter</p>
+        <p className="mt-4 text-6xl font-semibold tracking-tight text-slate-900 tabular-nums">
+          {count}
+        </p>
+      </header>
+
+      <div className="flex items-center justify-center gap-2">
+        <button
+          type="button"
+          onClick={() => setCount((n) => n - 1)}
+          aria-label="Decrement"
+          className="flex h-10 w-10 items-center justify-center rounded-lg bg-slate-100 text-slate-700 transition-colors hover:bg-slate-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 active:bg-slate-300"
         >
-          Decrease
+          <Minus className="h-4 w-4" />
         </button>
-        <button 
-          onClick={reset}
-          className="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600 transition-colors"
+        <button
+          type="button"
+          onClick={() => setCount(0)}
+          aria-label="Reset"
+          className="flex h-10 w-10 items-center justify-center rounded-lg bg-slate-100 text-slate-700 transition-colors hover:bg-slate-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 active:bg-slate-300"
         >
-          Reset
+          <RotateCcw className="h-4 w-4" />
         </button>
-        <button 
-          onClick={increment}
-          className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition-colors"
+        <button
+          type="button"
+          onClick={() => setCount((n) => n + 1)}
+          aria-label="Increment"
+          className="flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-600 text-white shadow-sm transition-colors hover:bg-indigo-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 active:bg-indigo-700"
         >
-          Increase
+          <Plus className="h-4 w-4" />
         </button>
       </div>
-    </div>
+    </section>
   );
 };
 
@@ -367,22 +387,22 @@ export default Counter;`;
   private getOldStringForReplace(componentType: string): string {
     switch (componentType) {
       case "form":
-        return "    console.log('Form submitted:', formData);";
+        return "We usually respond within a day.";
       case "card":
-        return '      <div className="p-6">';
+        return '    <section className="relative rounded-2xl bg-white p-8 shadow-sm ring-1 ring-slate-200/70 sm:p-10">';
       default:
-        return "  const increment = () => setCount(count + 1);";
+        return '        <p className="text-sm font-medium uppercase tracking-wide text-indigo-600">Counter</p>';
     }
   }
 
   private getNewStringForReplace(componentType: string): string {
     switch (componentType) {
       case "form":
-        return "    console.log('Form submitted:', formData);\n    alert('Thank you! We\\'ll get back to you soon.');";
+        return "Fill out the form and we'll get back within one business day.";
       case "card":
-        return '      <div className="p-6 hover:bg-gray-50 transition-colors">';
+        return '    <section className="relative rounded-2xl bg-white p-8 shadow-sm ring-1 ring-slate-200/70 sm:p-10">\n      <span className="absolute -top-3 right-6 rounded-full bg-indigo-600 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-white shadow-sm">Most popular</span>';
       default:
-        return "  const increment = () => setCount(prev => prev + 1);";
+        return '        <p className="text-sm font-medium uppercase tracking-wide text-indigo-600">Live counter</p>';
     }
   }
 
@@ -392,16 +412,19 @@ export default Counter;`;
 
 export default function App() {
   return (
-    <div className="min-h-screen bg-gray-100 flex items-center justify-center p-8">
-      <div className="w-full max-w-md">
-        <Card 
-          title="Amazing Product"
-          description="This is a fantastic product that will change your life. Experience the difference today!"
-          actions={
-            <button className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors">
-              Learn More
-            </button>
-          }
+    <div className="min-h-screen bg-slate-50 flex items-center justify-center p-6">
+      <div className="w-full max-w-sm">
+        <Card
+          plan="Pro"
+          price={29}
+          description="Everything you need to ship production apps with confidence."
+          features={[
+            'Unlimited projects',
+            'Priority email support',
+            'Advanced analytics dashboard',
+            'Custom domain & SSL',
+          ]}
+          ctaLabel="Start free trial"
         />
       </div>
     </div>
@@ -413,8 +436,8 @@ export default function App() {
 
 export default function App() {
   return (
-    <div className="min-h-screen bg-gray-100 flex items-center justify-center p-8">
-      <div className="w-full max-w-md">
+    <div className="min-h-screen bg-slate-50 flex items-center justify-center p-6">
+      <div className="w-full max-w-sm">
         <${componentName} />
       </div>
     </div>
