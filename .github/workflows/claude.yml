@@ -35,7 +35,6 @@ jobs:
       - name: Project Setup
         run: |
           npm run setup
-          npm run dev &        # backgrounded so the step doesn't hang
           npm run dev:daemon
 
       - name: Run Claude Code
