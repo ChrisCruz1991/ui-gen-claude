@@ -31,9 +31,10 @@ jobs:
           fetch-depth: 1
 
       - name: Project Setup
-      run: |
-        npm run dev
-        npm run dev:daemon
+        run: |
+          npm run setup
+          npm run dev
+          npm run dev:daemon
 
       - name: Run Claude Code
         id: claude

@@ -26,3 +26,4 @@ No ANTHROPIC_API_KEY found, using mock provider
  GET / 200 in 79ms
 No ANTHROPIC_API_KEY found, using mock provider
  POST /api/chat 200 in 12847ms
+   Reload env: .env
